@@ -24,7 +24,7 @@ class TestClass:
         actual_response = response.json()
         print(type(actual_response))
         print(type(expected_response))
-        #assert(expected_response == actual_response)
-        #assert(expected_response.get('data').get('id') == actual_response.get('data').get('id'))
+        assert(expected_response == actual_response)
+        assert(expected_response.get('data').get('id') == actual_response.get('data').get('id'))
         assert(response.status_code == 500)
 
