@@ -12,18 +12,19 @@ class TestClass:
         print(response.json())
         assert(response.json().get('items')[0].get('avatar_url') == 'https://avatars1.githubusercontent.com/u/17001476?v=4')
 
-    @pytest.mark.wip
     def test_for_reqres_requests(self):
         response = requests.get('https://reqres.in/api/users/2')
-        assert(response.status_code == 200)
-        expected_data = jsonpickle.encode(models.users.Data(2,
+        expected_data_from_model = models.users.Data(2,
                                      'janet.weaver@reqres.in',
                                      'Janet',
                                      'Weaver',
-                             'https://s3.amazonaws.com/uifaces/faces/twitter/josephstein/128.jpg').__dict__)
-        print(type(expected_data))
+                             'https://s3.amazonaws.com/uifaces/faces/twitter/josephstein/128.jpg')
 
-        #assert(jsonpickle.decode(response.text == expected_data))
-        assert(response.status_code == 200)
-#         assert(response.json().get('data').get('id') == 1)
+        expected_response = json.loads(jsonpickle.encode(expected_data_from_model,unpicklable=False))
+        actual_response = response.json()
+        print(type(actual_response))
+        print(type(expected_response))
+        #assert(expected_response == actual_response)
+        #assert(expected_response.get('data').get('id') == actual_response.get('data').get('id'))
+        assert(response.status_code == 500)
 
